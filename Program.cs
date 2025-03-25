@@ -36,7 +36,15 @@ class GasStationSimulation
             if (freePump != -1)
             {
                 // Если колонка свободна, начинаем заправку
-                double refuelTime = ExponentialSec();
+                double refuelTime;
+                if (freePump == 0)
+                {
+                    refuelTime = ExponentialFuel();
+                }
+                else
+                {
+                    refuelTime = ExponentialFuelSec();
+                }
                 pumpEndTimes[freePump] = arrivalTime + refuelTime;
                 carsServed++;
             }
@@ -59,7 +67,15 @@ class GasStationSimulation
                 totalWaitingTime += waitingTime;
 
                 int freePumpNow = FindFreePump(pumpEndTimes, currentTime);
-                double refuelTime = ExponentialSec();
+                double refuelTime;
+                if (freePump == 0)
+                {
+                    refuelTime = ExponentialFuel();
+                }
+                else
+                {
+                    refuelTime = ExponentialFuelSec();
+                }
                 pumpEndTimes[freePumpNow] = currentTime + refuelTime;
                 carsServed++;
             }
@@ -94,8 +110,12 @@ class GasStationSimulation
     {
         return (-1 * ((double)1 / (double)10) * Math.Log(random.NextDouble()));
     }
-    private static double ExponentialSec()
+    private static double ExponentialFuel()
     {
         return (-1 * ((double)1 / (double)5) * Math.Log(random.NextDouble()));
+    }
+    private static double ExponentialFuelSec()
+    {
+        return (-1 * ((double)1 / (double)4) * Math.Log(random.NextDouble()));
     }
 }
