@@ -30,13 +30,13 @@
         {
             CalculateButton = new Button();
             OutputBox = new RichTextBox();
-            QueueTextBox = new TextBox();
+            queueTextBox = new TextBox();
             label1 = new Label();
             SuspendLayout();
             // 
             // CalculateButton
             // 
-            CalculateButton.Location = new Point(599, 12);
+            CalculateButton.Location = new Point(202, 210);
             CalculateButton.Name = "CalculateButton";
             CalculateButton.Size = new Size(189, 23);
             CalculateButton.TabIndex = 0;
@@ -48,24 +48,24 @@
             // 
             OutputBox.Location = new Point(12, 12);
             OutputBox.Name = "OutputBox";
-            OutputBox.Size = new Size(581, 426);
+            OutputBox.Size = new Size(379, 192);
             OutputBox.TabIndex = 1;
             OutputBox.Text = "";
             // 
-            // QueueTextBox
+            // queueTextBox
             // 
-            QueueTextBox.Location = new Point(741, 41);
-            QueueTextBox.MaxLength = 1;
-            QueueTextBox.Name = "QueueTextBox";
-            QueueTextBox.Size = new Size(25, 23);
-            QueueTextBox.TabIndex = 2;
-            QueueTextBox.Text = "0";
-            QueueTextBox.TextAlign = HorizontalAlignment.Center;
+            queueTextBox.Location = new Point(144, 210);
+            queueTextBox.MaxLength = 1;
+            queueTextBox.Name = "queueTextBox";
+            queueTextBox.Size = new Size(25, 23);
+            queueTextBox.TabIndex = 2;
+            queueTextBox.Text = "0";
+            queueTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(609, 44);
+            label1.Location = new Point(12, 213);
             label1.Name = "label1";
             label1.Size = new Size(104, 15);
             label1.TabIndex = 3;
@@ -75,9 +75,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(404, 245);
             Controls.Add(label1);
-            Controls.Add(QueueTextBox);
+            Controls.Add(queueTextBox);
             Controls.Add(OutputBox);
             Controls.Add(CalculateButton);
             Name = "Form1";
@@ -90,7 +90,7 @@
 
         private Button CalculateButton;
         private RichTextBox OutputBox;
-        private TextBox QueueTextBox;
+        private TextBox queueTextBox;
         private Label label1;
     }
 }
