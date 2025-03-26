@@ -30,15 +30,14 @@
         {
             CalculateButton = new Button();
             OutputBox = new RichTextBox();
-            queueTextBox = new TextBox();
-            label1 = new Label();
             SuspendLayout();
             // 
             // CalculateButton
             // 
-            CalculateButton.Location = new Point(202, 210);
+            CalculateButton.Location = new Point(14, 283);
+            CalculateButton.Margin = new Padding(3, 4, 3, 4);
             CalculateButton.Name = "CalculateButton";
-            CalculateButton.Size = new Size(189, 23);
+            CalculateButton.Size = new Size(433, 31);
             CalculateButton.TabIndex = 0;
             CalculateButton.Text = "Вычислить";
             CalculateButton.UseVisualStyleBackColor = true;
@@ -46,44 +45,24 @@
             // 
             // OutputBox
             // 
-            OutputBox.Location = new Point(12, 12);
+            OutputBox.Location = new Point(14, 16);
+            OutputBox.Margin = new Padding(3, 4, 3, 4);
             OutputBox.Name = "OutputBox";
-            OutputBox.Size = new Size(379, 192);
+            OutputBox.Size = new Size(433, 255);
             OutputBox.TabIndex = 1;
             OutputBox.Text = "";
             // 
-            // queueTextBox
-            // 
-            queueTextBox.Location = new Point(144, 210);
-            queueTextBox.MaxLength = 1;
-            queueTextBox.Name = "queueTextBox";
-            queueTextBox.Size = new Size(25, 23);
-            queueTextBox.TabIndex = 2;
-            queueTextBox.Text = "0";
-            queueTextBox.TextAlign = HorizontalAlignment.Center;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 213);
-            label1.Name = "label1";
-            label1.Size = new Size(104, 15);
-            label1.TabIndex = 3;
-            label1.Text = "Количество мест:";
-            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(404, 245);
-            Controls.Add(label1);
-            Controls.Add(queueTextBox);
+            ClientSize = new Size(462, 327);
             Controls.Add(OutputBox);
             Controls.Add(CalculateButton);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             Text = "Заправки";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

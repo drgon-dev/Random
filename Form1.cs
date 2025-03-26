@@ -11,10 +11,10 @@ namespace WinFormsApp1
 
         private void CalculateButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 4; i++)
+            GasStationSimulation sim = new GasStationSimulation(false, 0);
+            for (int i = 0; i < Constants.queueVar; i++)
             {
-                GasStationSimulation sim = new GasStationSimulation(true, Convert.ToInt32(queueTextBox.Text));
-
+                sim.RunSimulation(i);
                 OutputBox.Text += $"Обслужено машин: {sim.carsServed}\n";
                 OutputBox.Text += $"Машин проехало мимо: {sim.carsMissed}\n";
                 OutputBox.Text += $"Пропускная способность: {(double)sim.carsServed / (double)Constants.simulationTime:F2} авто/час\n";
@@ -22,9 +22,10 @@ namespace WinFormsApp1
                 OutputBox.Text += $"Вероятность обслуживания: {(double)sim.carsServed / (double)sim.carsAmount:F2}\n";
                 OutputBox.Text += $"Вероятность отказа: {(double)sim.carsMissed / (double)sim.carsAmount:F2}\n";
                 OutputBox.Text += $"Вероятность занятости: {(double)sim.totalWaitingTime / (double)Constants.simulationTime:F2}\n\n";
-
-                ShowCharts(ref sim);
+                sim.Reset();
+                sim.queueCapacity++;
             }
+            ShowCharts(ref sim);
         }
 
         public void ShowCharts(ref GasStationSimulation sim)
@@ -48,36 +49,48 @@ namespace WinFormsApp1
             };
 
             // Добавляем области для разных графиков
-            ChartArea area1 = new ChartArea("QueueLength");
-            ChartArea area2 = new ChartArea("WaitingTime");
+            ChartArea area1 = new ChartArea("Пропуская способность");
+            ChartArea area2 = new ChartArea("Среднее время ожидания");
+            ChartArea area3 = new ChartArea("Вероятность обслуживания");
             chart.ChartAreas.Add(area1);
             chart.ChartAreas.Add(area2);
+            chart.ChartAreas.Add(area3);
 
-            // График длины очереди
-            Series queueSeries = new Series("Queue Length")
+            // График пропускной способности
+            Series queueSeries = new Series("Пропуская способность")
             {
-                ChartType = SeriesChartType.Line,
-                ChartArea = "QueueLength"
+                ChartType = SeriesChartType.Spline,
+                ChartArea = "Пропуская способность"
             };
-            for (int i = 0; i < sim.arrivalTimes.Count && i < sim.queueLengths.Count; i++)
+            for (int i = 0; i < Constants.queueVar; i++)
             {
-                queueSeries.Points.AddXY(sim.arrivalTimes[i], sim.queueLengths[i]);
+                queueSeries.Points.AddXY(i, sim.counter1[i]);
             }
 
-            // График времени ожидания
-            Series waitSeries = new Series("Waiting Time")
+            // График 
+            Series waitSeries = new Series("Среднее время ожидания")
             {
                 ChartType = SeriesChartType.Line,
-                ChartArea = "WaitingTime"
+                ChartArea = "Среднее время ожидания"
             };
-            for (int i = 0; i < sim.arrivalTimes.Count && i < sim.waitingTimes.Count; i++)
+            for (int i = 0; i < Constants.queueVar; i++)
             {
-                if (sim.waitingTimes[i] >= 0) // Пропускаем машины, которые уехали
-                    waitSeries.Points.AddXY(sim.arrivalTimes[i], sim.waitingTimes[i]);
+                waitSeries.Points.AddXY(i, sim.counter2[i]);
+            }
+
+            Series servingSeries = new Series("Вероятность обcлуживания")
+            {
+                ChartType = SeriesChartType.Line,
+                ChartArea = "Вероятность обслуживания"
+            };
+            for (int i = 0; i < Constants.queueVar; i++)
+            {
+                servingSeries.Points.AddXY(i, sim.counter3[i]);
             }
 
             chart.Series.Add(queueSeries);
             chart.Series.Add(waitSeries);
+            chart.Series.Add(servingSeries);
 
             chartForm.Controls.Add(chart);
             Task.Run(() => Application.Run(chartForm));

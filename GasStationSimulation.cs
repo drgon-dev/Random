@@ -2,7 +2,7 @@
 {
     private Random random = new Random();
 
-    private int queueCapacity; // Количество мест в очереди
+    public int queueCapacity; // Количество мест в очереди
     public int carsAmount; // Количество всех машин
     public int carsServed; // Количество обслуженных машин
     public int carsMissed; // Количество машин, которые проехали мимо
@@ -10,10 +10,13 @@
     public List<double> arrivalTimes = new List<double>();
     public List<double> waitingTimes = new List<double>();
     public List<int> queueLengths = new List<int>();
+    public double[] counter1 = new double[Constants.queueVar];
+    public double[] counter2 = new double[Constants.queueVar];
+    public double[] counter3 = new double[Constants.queueVar];
 
     public double totalWaitingTime; // Общее время ожидания в очереди
 
-    private void Reset()
+    public void Reset()
     {
         carsAmount = 0;
         carsServed = 0;
@@ -86,7 +89,10 @@
                 waitingTimes.Add(waitingTime);
             }
         }
-    }
+        counter1[queueCapacity] = (double)carsServed / (double)Constants.simulationTime;
+        counter2[queueCapacity] = (double)totalWaitingTime / (double)carsServed;
+        counter3[queueCapacity] = (double)carsServed / (double)carsAmount;
+}
 
     // Метод для поиска свободной колонки
     private int FindFreePump(List<double> pumpEndTimes, double arrivalTime)
