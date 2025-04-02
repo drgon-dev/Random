@@ -13,6 +13,8 @@
     public double[] counter1 = new double[Constants.queueVar];
     public double[] counter2 = new double[Constants.queueVar];
     public double[] counter3 = new double[Constants.queueVar];
+    public double[] counter4 = new double[Constants.queueVar];
+    public double[] counter5 = new double[Constants.queueVar];
 
     public double totalWaitingTime; // Общее время ожидания в очереди
 
@@ -92,7 +94,9 @@
         counter1[queueCapacity] = (double)carsServed / (double)Constants.simulationTime;
         counter2[queueCapacity] = (double)totalWaitingTime / (double)carsServed;
         counter3[queueCapacity] = (double)carsServed / (double)carsAmount;
-}
+        counter4[queueCapacity] = (double)carsMissed / (double)carsAmount;
+        counter5[queueCapacity] = ((double)totalWaitingTime / (double)queueCapacity) / (double)Constants.simulationTime;
+    }
 
     // Метод для поиска свободной колонки
     private int FindFreePump(List<double> pumpEndTimes, double arrivalTime)
